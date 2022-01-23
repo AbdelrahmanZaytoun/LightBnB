@@ -1,4 +1,5 @@
 const database = require("./database");
+const userRoutes = require("./userRoutes");
 
 const path = require("path");
 
@@ -17,6 +18,11 @@ app.use(
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+// /user/endpoints
+const userRouter = express.Router();
+userRoutes(userRouter, database);
+app.use("/users", userRouter);
 
 app.use(express.static(path.join(__dirname, "../public")));
 
