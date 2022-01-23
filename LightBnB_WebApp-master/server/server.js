@@ -1,4 +1,5 @@
 const database = require("./database");
+const apiRoutes = require("./apiRoutes");
 const userRoutes = require("./userRoutes");
 
 const path = require("path");
@@ -18,6 +19,11 @@ app.use(
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+// /api/endpoints
+const apiRouter = express.Router();
+apiRoutes(apiRouter, database);
+app.use("/api", apiRouter);
 
 // /user/endpoints
 const userRouter = express.Router();
